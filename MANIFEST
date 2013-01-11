@@ -22,10 +22,7 @@ README
 RIR.pm
 RIR_CC.pm
 share/list-of-country-codes-and-rirs-ordered-by-country-code.html
-t/00-load.t
 t/01_construct.t
 t/02_get_rir.t
-t/boilerplate.t
 t/manifest.t
-t/pod-coverage.t
 t/pod.t
