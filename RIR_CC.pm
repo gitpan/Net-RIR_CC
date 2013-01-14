@@ -8,7 +8,7 @@ use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 has 'datafile'  => ( is => 'ro', isa => 'Str', default => sub {
   my $datafile = dist_file( 'Net-RIR_CC', 'list-of-country-codes-and-rirs-ordered-by-country-code.html' );
@@ -51,7 +51,8 @@ sub _build_cc_map {
 
   my $data = $self->_map_table_with_key(0);
 
-  # Add a couple of special cases
+  # Add special cases
+  $data->{RS} = 'RIPE';             # Serbia
   $data->{UK} = 'RIPE';
   $data->{EU} = 'RIPE';
 
@@ -61,7 +62,12 @@ sub _build_cc_map {
 sub _build_a3_map {
   my $self = shift;
 
-  return $self->_map_table_with_key(1);
+  my $data = $self->_map_table_with_key(1);
+
+  # Add special cases
+  $data->{SRB} = 'RIPE';            # Serbia
+
+  return $data;
 }
 
 sub get_rir {
@@ -81,7 +87,7 @@ Net::RIR_CC - perl module for mapping country codes to RIRs
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =head1 SYNOPSIS
 
