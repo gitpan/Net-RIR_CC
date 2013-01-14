@@ -8,7 +8,7 @@ use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 has 'datafile'  => ( is => 'ro', isa => 'Str', default => sub {
   my $datafile = dist_file( 'Net-RIR_CC', 'list-of-country-codes-and-rirs-ordered-by-country-code.html' );
@@ -51,10 +51,20 @@ sub _build_cc_map {
 
   my $data = $self->_map_table_with_key(0);
 
-  # Add special cases
+  # Add missing codes not covered by the NRO page
   $data->{RS} = 'RIPE';             # Serbia
-  $data->{UK} = 'RIPE';
-  $data->{EU} = 'RIPE';
+  $data->{ME} = 'RIPE';             # Montenegro
+  $data->{JE} = 'RIPE';             # Jersey
+  $data->{GG} = 'RIPE';             # Guernsey
+  $data->{IM} = 'RIPE';             # Isle of Man
+  $data->{MF} = 'ARIN';             # Saint Martin
+  $data->{SS} = 'AFRINIC';          # South Sudan
+  $data->{BQ} = 'LACNIC';           # Bonaire, Sint Eustatius and Saba
+  $data->{UK} = 'RIPE';             # GB is official ISO-3166-2 code
+
+  # Region codes
+  $data->{EU} = 'RIPE';             # Europe
+  $data->{AP} = 'APNIC';            # Asia-Pacific
 
   return $data;
 }
@@ -64,8 +74,15 @@ sub _build_a3_map {
 
   my $data = $self->_map_table_with_key(1);
 
-  # Add special cases
+  # Add missing codes not covered by the NRO page
   $data->{SRB} = 'RIPE';            # Serbia
+  $data->{MNE} = 'RIPE';            # Montenegro
+  $data->{JEY} = 'RIPE';            # Jersey
+  $data->{GGY} = 'RIPE';            # Guernsey
+  $data->{IMN} = 'RIPE';            # Isle of Man
+  $data->{MAF} = 'ARIN';            # Saint Martin
+  $data->{SSD} = 'AFRINIC';         # South Sudan
+  $data->{BES} = 'LACNIC';          # Bonaire, Sint Eustatius and Saba
 
   return $data;
 }
@@ -87,7 +104,7 @@ Net::RIR_CC - perl module for mapping country codes to RIRs
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =head1 SYNOPSIS
 
@@ -107,9 +124,11 @@ Version 0.05
 
 =head1 DESCRIPTION
 
-Net::RIR_CC is a perl module for mapping country codes to RIRs (Regional
-Internet Registries), using the mappings from
-L<http://www.nro.net/about-the-nro/list-of-country-codes-and-rirs-ordered-by-country-code>.
+Net::RIR_CC is a perl module for mapping ISO-3166 country codes to RIRs
+(Regional Internet Registries), using the mappings from
+L<http://www.nro.net/about-the-nro/list-of-country-codes-and-rirs-ordered-by-country-code>,
+plus a few extras missing from that page.
+
 A snapshot of this page is included with the distribution, but you can
 download and load an updated version if you'd prefer. 
 
