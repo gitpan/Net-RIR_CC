@@ -1,7 +1,6 @@
 #!perl
 
 use Test::More;
-use Data::Dump qw(pp);
 
 use Net::RIR_CC;
 

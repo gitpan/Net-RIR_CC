@@ -8,7 +8,7 @@ use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 has 'datafile'  => ( is => 'ro', isa => 'Str', default => sub {
   my $datafile = dist_file( 'Net-RIR_CC', 'list-of-country-codes-and-rirs-ordered-by-country-code.html' );
@@ -81,7 +81,7 @@ Net::RIR_CC - perl module for mapping country codes to RIRs
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 SYNOPSIS
 
